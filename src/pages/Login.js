@@ -18,7 +18,6 @@ class Login extends React.Component {
     const minLength = 6;
     // regex supplied by https://regexr.com/3e48o;
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    console.log(passwordInput.length);
     return emailInput.match(regex) && passwordInput.length >= minLength;
   }
 
