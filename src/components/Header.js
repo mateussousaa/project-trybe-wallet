@@ -3,9 +3,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Header extends Component {
+  sumExpenses = () => {
+    const { expenses } = this.props;
+    if (expenses.length === 0) return 0;
+    return expenses.reduce((acc, cur) => {
+      const {
+        currency,
+        value,
+        exchangeRates,
+      } = cur;
+      return acc + (exchangeRates[currency].ask * value);
+    }, 0);
+  }
+
   render() {
     const { userEmail } = this.props;
-    const expenseTotal = 0;
+    const expenseTotal = this.sumExpenses().toFixed(2);
     const currentCurrency = 'BRL';
     return (
       <div>
@@ -34,10 +47,12 @@ class Header extends Component {
 
 Header.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (store) => ({
   userEmail: store.user.email,
+  expenses: store.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Header);

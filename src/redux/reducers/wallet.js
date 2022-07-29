@@ -1,12 +1,14 @@
 import {
   ERROR_CURRENCIES_INFO,
-  REQUEST_CURRENCIES_INFO,
   RESPONSE_CURRENCIES_INFO,
+  REQUEST_CURRENCIES_INFO,
+  ADD_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
   loading: false,
   currencies: [],
+  expenses: [],
   error: null,
 };
 
@@ -28,6 +30,11 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       loading: false,
       error: action.error,
+    };
+  case ADD_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.expense],
     };
   default:
     return state;
