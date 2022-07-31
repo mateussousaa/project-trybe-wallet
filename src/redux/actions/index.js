@@ -1,5 +1,4 @@
-import fetchCurrenciesInfo,
-{ fetchCurrenciesToExpense } from '../../services/fetchCurrenciesAPI';
+import fetchCurrenciesInfo from '../../services/fetchCurrenciesAPI';
 
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const REQUEST_CURRENCIES_INFO = 'REQUEST_CURRENCIES_INFO';
@@ -34,7 +33,9 @@ export const fetchCurrenciesAPI = () => async (dispatch) => {
   dispatch(requestCurrenciesInfo());
   try {
     const response = await fetchCurrenciesInfo();
-    dispatch(responseCurrenciesInfo(response));
+    const filteredCurrencies = Object.keys(response)
+      .filter((currency) => currency !== 'USDT');
+    dispatch(responseCurrenciesInfo(filteredCurrencies));
   } catch (e) {
     dispatch(errorCurrenciesInfo(e));
   }
@@ -43,9 +44,8 @@ export const fetchCurrenciesAPI = () => async (dispatch) => {
 export const fetchCurrenciesToExpenses = (expenseDetails) => async (dispatch) => {
   const expense = {
     ...expenseDetails,
-    exchangeRates: await fetchCurrenciesToExpense(),
+    exchangeRates: await fetchCurrenciesInfo(),
   };
-  console.log(expense);
   dispatch(addExpense(expense));
 };
 
