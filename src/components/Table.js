@@ -4,13 +4,8 @@ import { connect } from 'react-redux';
 import { editExpense, removeExpense } from '../redux/actions';
 
 class Table extends Component {
-  handleClick = ({ target: { id } }) => {
-    const { removeAnExpense } = this.props;
-    removeAnExpense(parseInt(id, 10));
-  }
-
   render() {
-    const { expenses, editAnExpense } = this.props;
+    const { expenses, removeAnExpense, editAnExpense } = this.props;
     return (
       <div>
         <table>
@@ -52,7 +47,7 @@ class Table extends Component {
                           type="button"
                           data-testid="delete-btn"
                           id={ id }
-                          onClick={ this.handleClick }
+                          onClick={ () => { removeAnExpense(parseInt(id, 10)); } }
                         >
                           Excluir
                         </button>
@@ -60,7 +55,7 @@ class Table extends Component {
                           type="button"
                           data-testid="edit-btn"
                           id={ id }
-                          onClick={ editAnExpense }
+                          onClick={ () => { editAnExpense(parseInt(id, 10)); } }
                         >
                           Editar
                         </button>
@@ -77,6 +72,7 @@ class Table extends Component {
 }
 
 Table.propTypes = {
+  editAnExpense: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeAnExpense: PropTypes.func.isRequired,
 };
@@ -87,7 +83,7 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   removeAnExpense: (id) => dispatch(removeExpense(id)),
-  editAnExpense: () => dispatch(editExpense()),
+  editAnExpense: (id) => dispatch(editExpense(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

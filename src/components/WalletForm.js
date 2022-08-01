@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
+  finishedEdition,
   fetchCurrenciesAPI,
   fetchCurrenciesToExpenses,
   removeExpense,
@@ -36,9 +37,14 @@ class WalletForm extends Component {
   }
 
   editExpense = () => {
-    const { addAnExpense, removeAnExpense, id } = this.props;
+    const { addAnExpense,
+      removeAnExpense,
+      completedEdit,
+      id } = this.props;
     removeAnExpense(id);
     addAnExpense({ ...this.state, id });
+    completedEdit();
+    this.setState({ value: '', description: '' });
   };
 
   render() {
@@ -108,6 +114,7 @@ class WalletForm extends Component {
 
 WalletForm.propTypes = {
   addAnExpense: PropTypes.func.isRequired,
+  completedEdit: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   editorMode: PropTypes.bool.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -127,6 +134,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(fetchCurrenciesAPI()),
   addAnExpense: (expense) => dispatch(fetchCurrenciesToExpenses(expense)),
   removeAnExpense: (id) => dispatch(removeExpense(id)),
+  completedEdit: () => dispatch(finishedEdition()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
