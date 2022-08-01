@@ -9,11 +9,10 @@ class Login extends React.Component {
     this.state = {
       emailInput: '',
       passwordInput: '',
-      loginBtnIsDisabled: true,
     };
   }
 
-  validateForm = () => {
+  validateLoginBtn = () => {
     const { emailInput, passwordInput } = this.state;
     const minLength = 6;
     // regex supplied by https://regexr.com/3e48o;
@@ -21,13 +20,7 @@ class Login extends React.Component {
     return emailInput.match(regex) && passwordInput.length >= minLength;
   }
 
-  refreshBtnState = () => {
-    this.setState({ loginBtnIsDisabled: !this.validateForm() });
-  }
-
-  handleInputs = ({ target: { name, value } }) => {
-    this.setState({ [name]: value }, this.refreshBtnState);
-  }
+  handleInputs = ({ target: { name, value } }) => this.setState({ [name]: value });
 
   doLogin = () => {
     const { history, saveUserEmail } = this.props;
@@ -37,7 +30,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { loginBtnIsDisabled, emailInput, passwordInput } = this.state;
+    const { emailInput, passwordInput } = this.state;
     return (
       <div>
         <form>
@@ -58,7 +51,7 @@ class Login extends React.Component {
           <button
             type="button"
             onClick={ this.doLogin }
-            disabled={ loginBtnIsDisabled }
+            disabled={ !this.validateLoginBtn() }
           >
             Entrar
           </button>

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
   fetchCurrenciesAPI,
   fetchCurrenciesToExpenses,
+  removeExpense,
 } from '../redux/actions/index';
 
 class WalletForm extends Component {
@@ -34,8 +35,14 @@ class WalletForm extends Component {
     this.setState({ value: '', description: '' });
   }
 
+  editExpense = () => {
+    const { addAnExpense, removeAnExpense, id } = this.props;
+    removeAnExpense(id);
+    addAnExpense({ ...this.state, id });
+  };
+
   render() {
-    const { currencies } = this.props;
+    const { currencies, editorMode } = this.props;
     const { value, description } = this.state;
     const btnIsDisabled = parseInt(value, 10) <= 0 || value === '';
     return (
@@ -88,10 +95,10 @@ class WalletForm extends Component {
           </select>
           <button
             type="button"
-            onClick={ this.addExpense }
+            onClick={ editorMode ? this.editExpense : this.addExpense }
             disabled={ btnIsDisabled }
           >
-            Adicionar despesa
+            { editorMode ? 'Editar despesa' : 'Adicionar despesa'}
           </button>
         </form>
       </div>
@@ -100,20 +107,26 @@ class WalletForm extends Component {
 }
 
 WalletForm.propTypes = {
+  addAnExpense: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  editorMode: PropTypes.bool.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchCurrencies: PropTypes.func.isRequired,
-  addAnExpense: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  removeAnExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (store) => ({
   currencies: store.wallet.currencies,
   expenses: store.wallet.expenses,
+  editorMode: store.wallet.editor,
+  id: store.wallet.idToEdit,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(fetchCurrenciesAPI()),
   addAnExpense: (expense) => dispatch(fetchCurrenciesToExpenses(expense)),
+  removeAnExpense: (id) => dispatch(removeExpense(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);

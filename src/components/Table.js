@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { removeExpense } from '../redux/actions';
+import { editExpense, removeExpense } from '../redux/actions';
 
 class Table extends Component {
   handleClick = ({ target: { id } }) => {
@@ -10,7 +10,7 @@ class Table extends Component {
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, editAnExpense } = this.props;
     return (
       <div>
         <table>
@@ -29,35 +29,45 @@ class Table extends Component {
           </thead>
           <tbody>
             {
-              expenses.map((expense) => {
-                const { value, currency, method,
-                  tag, description, exchangeRates, id } = expense;
-                return (
-                  <tr key={ currency }>
-                    <td>{ description }</td>
-                    <td>{ tag }</td>
-                    <td>{ method }</td>
-                    <td>{ parseFloat(value).toFixed(2) }</td>
-                    <td>{ exchangeRates[currency].name }</td>
-                    <td>{ parseFloat(exchangeRates[currency].ask).toFixed(2) }</td>
-                    <td>
-                      { parseFloat(exchangeRates[currency].ask * value)
-                        .toFixed(2) }
-                    </td>
-                    <td>Real</td>
-                    <td>
-                      <button
-                        type="button"
-                        data-testid="delete-btn"
-                        id={ id }
-                        onClick={ this.handleClick }
-                      >
-                        Excluir
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })
+              expenses
+                .sort((a, b) => parseFloat(a.id) - parseFloat(b.id))
+                .map((expense) => {
+                  const { value, currency, method,
+                    tag, description, exchangeRates, id } = expense;
+                  return (
+                    <tr key={ id }>
+                      <td>{ description }</td>
+                      <td>{ tag }</td>
+                      <td>{ method }</td>
+                      <td>{ parseFloat(value).toFixed(2) }</td>
+                      <td>{ exchangeRates[currency].name }</td>
+                      <td>{ parseFloat(exchangeRates[currency].ask).toFixed(2) }</td>
+                      <td>
+                        { parseFloat(exchangeRates[currency].ask * value)
+                          .toFixed(2) }
+                      </td>
+                      <td>Real</td>
+                      <td>
+                        <button
+                          type="button"
+                          data-testid="delete-btn"
+                          id={ id }
+                          onClick={ this.handleClick }
+                        >
+                          Excluir
+                        </button>
+                        <button
+                          type="button"
+                          data-testid="edit-btn"
+                          id={ id }
+                          onClick={ editAnExpense }
+                        >
+                          Editar
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
             }
           </tbody>
         </table>
@@ -76,7 +86,8 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeAnExpense: (expense) => dispatch(removeExpense(expense)),
+  removeAnExpense: (id) => dispatch(removeExpense(id)),
+  editAnExpense: () => dispatch(editExpense()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

@@ -1,36 +1,23 @@
 import {
-  ERROR_CURRENCIES_INFO,
   RESPONSE_CURRENCIES_INFO,
-  REQUEST_CURRENCIES_INFO,
   ADD_EXPENSE,
   REMOVE_EXPENSE,
+  EDIT_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
-  loading: false,
   currencies: [],
   expenses: [],
-  error: null,
+  editor: false,
+  idToEdit: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case REQUEST_CURRENCIES_INFO:
-    return {
-      ...state,
-      loading: true,
-    };
   case RESPONSE_CURRENCIES_INFO:
     return {
       ...state,
-      loading: false,
       currencies: action.currencies,
-    };
-  case ERROR_CURRENCIES_INFO:
-    return {
-      ...state,
-      loading: false,
-      error: action.error,
     };
   case ADD_EXPENSE:
     return {
@@ -41,6 +28,11 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: state.expenses.filter(({ id }) => id !== action.expenseId),
+    };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      editor: true,
     };
   default:
     return state;
