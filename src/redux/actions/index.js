@@ -6,6 +6,7 @@ export const RESPONSE_CURRENCIES_INFO = 'RESPONSE_CURRENCIES_INFO';
 export const ERROR_CURRENCIES_INFO = 'ERROR_CURRENCIES_INFO';
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 // ACTION CREATORS
 
@@ -26,6 +27,7 @@ const errorCurrenciesInfo = (error) => ({ type: ERROR_CURRENCIES_INFO, error });
 // ACTIONS TO CURRENCIES TO EXPENSES
 
 const addExpense = (expense) => ({ type: ADD_EXPENSE, expense });
+export const removeExpense = (expenseId) => ({ type: REMOVE_EXPENSE, expenseId });
 
 // THUNKS
 
