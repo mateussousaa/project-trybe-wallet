@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux/';
+import LoginForm from '../components/LoginForm';
 import saveEmail from '../redux/actions';
 
 class Login extends React.Component {
@@ -17,7 +18,7 @@ class Login extends React.Component {
     const minLength = 6;
     // regex supplied by https://regexr.com/3e48o;
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    return emailInput.match(regex) && passwordInput.length >= minLength;
+    return !(emailInput.match(regex) && passwordInput.length >= minLength);
   }
 
   handleInputs = ({ target: { name, value } }) => this.setState({ [name]: value });
@@ -30,34 +31,15 @@ class Login extends React.Component {
   }
 
   render() {
-    const { emailInput, passwordInput } = this.state;
-    return (
-      <div>
-        <form>
-          <input
-            data-testid="email-input"
-            type="email"
-            name="emailInput"
-            onChange={ this.handleInputs }
-            value={ emailInput }
-          />
-          <input
-            data-testid="password-input"
-            type="password"
-            name="passwordInput"
-            onChange={ this.handleInputs }
-            value={ passwordInput }
-          />
-          <button
-            type="button"
-            onClick={ this.doLogin }
-            disabled={ !this.validateLoginBtn() }
-          >
-            Entrar
-          </button>
-        </form>
-      </div>
-    );
+    const payload = {
+      values: { ...this.state },
+      callbacks: {
+        handleInputs: this.handleInputs,
+        doLogin: this.doLogin,
+        validateLoginBtn: this.validateLoginBtn,
+      },
+    };
+    return <LoginForm payload={ payload } />;
   }
 }
 
