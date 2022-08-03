@@ -5,40 +5,23 @@ import { connect } from 'react-redux';
 class Header extends Component {
   sumExpenses = () => {
     const { expenses } = this.props;
-    if (expenses.length === 0) return 0;
     return expenses.reduce((acc, cur) => {
-      const {
-        currency,
-        value,
-        exchangeRates,
-      } = cur;
+      const { currency, value, exchangeRates } = cur;
       return acc + (exchangeRates[currency].ask * value);
-    }, 0);
+    }, 0).toFixed(2);
   }
 
   render() {
     const { userEmail } = this.props;
-    const expenseTotal = this.sumExpenses().toFixed(2);
+    const expenseTotal = this.sumExpenses();
     const currentCurrency = 'BRL';
     return (
-      <div>
+      <div className="wallet-header">
         Header
-        <p
-          data-testid="email-field"
-        >
-          { userEmail }
-        </p>
+        <p data-testid="email-field">{ userEmail }</p>
         <div>
-          <p
-            data-testid="total-field"
-          >
-            { expenseTotal }
-          </p>
-          <span
-            data-testid="header-currency-field"
-          >
-            { currentCurrency }
-          </span>
+          <p data-testid="total-field">{ expenseTotal }</p>
+          <span data-testid="header-currency-field">{ currentCurrency }</span>
         </div>
       </div>
     );

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function LoginForm({ payload: { values, callbacks } }) {
   return (
-    <div>
+    <div className="login-form">
       <form>
         <input
           data-testid="email-input"

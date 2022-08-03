@@ -39,7 +39,11 @@ class Login extends React.Component {
         validateLoginBtn: this.validateLoginBtn,
       },
     };
-    return <LoginForm payload={ payload } />;
+    return (
+      <div className="login-page">
+        <LoginForm payload={ payload } />
+      </div>
+    );
   }
 }
 

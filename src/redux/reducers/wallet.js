@@ -3,7 +3,7 @@ import {
   ADD_EXPENSE,
   REMOVE_EXPENSE,
   EDIT_EXPENSE,
-  FINISHED_EDITION,
+  FINISH_EDITION,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -36,7 +36,7 @@ const wallet = (state = INITIAL_STATE, action) => {
       editor: true,
       idToEdit: action.idToEdit,
     };
-  case FINISHED_EDITION:
+  case FINISH_EDITION:
     return {
       ...state,
       editor: false,

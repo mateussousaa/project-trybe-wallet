@@ -3,66 +3,66 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { editExpense, removeExpense } from '../redux/actions';
 
+const tableHeaders = [
+  'Descrição', 'Tag', 'Método de pagamento', 'Valor',
+  'Moeda', 'Câmbio utilizado', 'Valor convertido',
+  'Moeda de conversão', 'Editar/Excluir',
+];
+
 class Table extends Component {
-  render() {
-    const { expenses, removeAnExpense, editAnExpense } = this.props;
+  fillRow = (expense) => {
+    const { removeAnExpense, editAnExpense } = this.props;
+    const { value, currency, method, tag, description, id, exchangeRates } = expense;
+    const { ask, name } = exchangeRates[currency];
+    const convertedValue = (parseFloat(ask) * parseFloat(value)).toFixed(2);
+    console.log(typeof id);
     return (
-      <div>
+      <tr key={ id }>
+        <td>{ description }</td>
+        <td>{ tag }</td>
+        <td>{ method }</td>
+        <td>{ parseFloat(value).toFixed(2) }</td>
+        <td>{ name }</td>
+        <td>{ parseFloat(ask).toFixed(2) }</td>
+        <td>{ convertedValue }</td>
+        <td>Real</td>
+        <td>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            onClick={ () => { removeAnExpense(id); } }
+          >
+            Excluir
+          </button>
+          <button
+            type="button"
+            data-testid="edit-btn"
+            onClick={ () => { editAnExpense(id); } }
+          >
+            Editar
+          </button>
+        </td>
+      </tr>
+    );
+  }
+
+  render() {
+    const { expenses } = this.props;
+    return (
+      <div className="expenses-table">
         <table>
           <thead>
             <tr>
-              <th>Descrição</th>
-              <th>Tag</th>
-              <th>Método de pagamento</th>
-              <th>Valor</th>
-              <th>Moeda</th>
-              <th>Câmbio utilizado</th>
-              <th>Valor convertido</th>
-              <th>Moeda de conversão</th>
-              <th>Editar/Excluir</th>
+              {
+                tableHeaders.map((th) => <th key={ th }>{ th }</th>)
+              }
             </tr>
           </thead>
           <tbody>
             {
               expenses
                 .sort((a, b) => parseFloat(a.id) - parseFloat(b.id))
-                .map((expense) => {
-                  const { value, currency, method,
-                    tag, description, exchangeRates, id } = expense;
-                  return (
-                    <tr key={ id }>
-                      <td>{ description }</td>
-                      <td>{ tag }</td>
-                      <td>{ method }</td>
-                      <td>{ parseFloat(value).toFixed(2) }</td>
-                      <td>{ exchangeRates[currency].name }</td>
-                      <td>{ parseFloat(exchangeRates[currency].ask).toFixed(2) }</td>
-                      <td>
-                        { parseFloat(exchangeRates[currency].ask * value)
-                          .toFixed(2) }
-                      </td>
-                      <td>Real</td>
-                      <td>
-                        <button
-                          type="button"
-                          data-testid="delete-btn"
-                          id={ id }
-                          onClick={ () => { removeAnExpense(parseInt(id, 10)); } }
-                        >
-                          Excluir
-                        </button>
-                        <button
-                          type="button"
-                          data-testid="edit-btn"
-                          id={ id }
-                          onClick={ () => { editAnExpense(parseInt(id, 10)); } }
-                        >
-                          Editar
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })
+                .map((expense) => this.fillRow(expense))
             }
           </tbody>
         </table>

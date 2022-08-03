@@ -5,7 +5,7 @@ export const RESPONSE_CURRENCIES_INFO = 'RESPONSE_CURRENCIES_INFO';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 export const EDIT_EXPENSE = 'EDIT_EXPENSE';
-export const FINISHED_EDITION = 'FINISHED_EDITION';
+export const FINISH_EDITION = 'FINISH_EDITION';
 
 // ACTION CREATORS
 
@@ -24,7 +24,7 @@ const responseCurrenciesInfo = (currencies) => (
 const addExpense = (expense) => ({ type: ADD_EXPENSE, expense });
 export const removeExpense = (expenseId) => ({ type: REMOVE_EXPENSE, expenseId });
 export const editExpense = (expenseId) => ({ type: EDIT_EXPENSE, idToEdit: expenseId });
-export const finishedEdition = () => ({ type: FINISHED_EDITION });
+export const finishEdition = () => ({ type: FINISH_EDITION });
 
 // THUNKS
 
