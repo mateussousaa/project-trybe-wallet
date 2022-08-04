@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import trybewalletIcon from '../assets/trybewalletIcon.png';
 
 class Header extends Component {
   sumExpenses = () => {
@@ -17,9 +18,12 @@ class Header extends Component {
     const currentCurrency = 'BRL';
     return (
       <div className="wallet-header">
-        Header
+        <a className="logo" href="/">
+          <h2 className="logo-text">Trybewallet</h2>
+          <img className="logo-image" src={ trybewalletIcon } alt="Trybewallet Logo" />
+        </a>
         <p data-testid="email-field">{ userEmail }</p>
-        <div>
+        <div className="expenses-value">
           <p data-testid="total-field">{ expenseTotal }</p>
           <span data-testid="header-currency-field">{ currentCurrency }</span>
         </div>

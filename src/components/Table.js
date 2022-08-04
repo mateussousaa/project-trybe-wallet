@@ -15,20 +15,23 @@ class Table extends Component {
     const { value, currency, method, tag, description, id, exchangeRates } = expense;
     const { ask, name } = exchangeRates[currency];
     const convertedValue = (parseFloat(ask) * parseFloat(value)).toFixed(2);
-    console.log(typeof id);
     return (
       <tr key={ id }>
-        <td>{ description }</td>
-        <td>{ tag }</td>
-        <td>{ method }</td>
-        <td>{ parseFloat(value).toFixed(2) }</td>
-        <td>{ name }</td>
-        <td>{ parseFloat(ask).toFixed(2) }</td>
-        <td>{ convertedValue }</td>
-        <td>Real</td>
-        <td>
+        <td data-label="Descrição:">{ description }</td>
+        <td data-label="Categoria:">{ tag }</td>
+        <td data-label="Pagamento:">{ method }</td>
+        <td data-label="Valor:">{ parseFloat(value).toFixed(2) }</td>
+        <td data-label="De:">{ name }</td>
+        <td data-label="Câmbio:">{ parseFloat(ask).toFixed(2) }</td>
+        <td data-label="Valor total:">{ convertedValue }</td>
+        <td data-label="Para:">Real</td>
+        <td
+          data-label="Editar/Excluir"
+          className="buttons-section"
+        >
           <button
             type="button"
+            id="delete-btn"
             data-testid="delete-btn"
             onClick={ () => { removeAnExpense(id); } }
           >
@@ -36,6 +39,7 @@ class Table extends Component {
           </button>
           <button
             type="button"
+            id="edit-btn"
             data-testid="edit-btn"
             onClick={ () => { editAnExpense(id); } }
           >
@@ -50,6 +54,7 @@ class Table extends Component {
     const { expenses } = this.props;
     return (
       <div className="expenses-table">
+        <h2>Tabela de despesas</h2>
         <table>
           <thead>
             <tr>

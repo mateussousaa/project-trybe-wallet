@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import trybewalletIcon from '../assets/trybewalletIcon.png';
 
 function LoginForm({ payload: { values, callbacks } }) {
   return (
     <div className="login-form">
+      <a className="logo" href="/">
+        <h2 className="logo-text">Trybewallet</h2>
+        <img className="logo-image" src={ trybewalletIcon } alt="Trybewallet Logo" />
+      </a>
       <form>
         <input
           data-testid="email-input"
@@ -11,6 +16,7 @@ function LoginForm({ payload: { values, callbacks } }) {
           name="emailInput"
           onChange={ callbacks.handleInputs }
           value={ values.emailInput }
+          placeholder="Email"
         />
         <input
           data-testid="password-input"
@@ -18,11 +24,12 @@ function LoginForm({ payload: { values, callbacks } }) {
           name="passwordInput"
           onChange={ callbacks.handleInputs }
           value={ values.passwordInput }
+          placeholder="Senha"
         />
         <button
           type="button"
           onClick={ callbacks.doLogin }
-          disabled={ callbacks.validateLoginBtn() }
+          disabled={ values.isDisabled }
         >
           Entrar
         </button>
@@ -36,11 +43,11 @@ LoginForm.propTypes = {
     values: PropTypes.shape({
       emailInput: PropTypes.string,
       passwordInput: PropTypes.string,
+      isDisabled: PropTypes.bool,
     }),
     callbacks: PropTypes.shape({
       handleInputs: PropTypes.func,
       doLogin: PropTypes.func,
-      validateLoginBtn: PropTypes.func,
     }).isRequired,
   }).isRequired,
 };

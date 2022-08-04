@@ -50,10 +50,10 @@ class WalletForm extends Component {
   render() {
     const { currencies, editorMode } = this.props;
     const { value, description } = this.state;
-    const btnIsDisabled = parseInt(value, 10) <= 0 || value === '';
+    const btnIsDisabled = parseInt(value, 10) <= 0 || value === '' || description === '';
     return (
       <div className="wallet-form">
-        WalletForm
+        <h2>Despesa</h2>
         <form>
           <input
             name="value"
@@ -61,13 +61,16 @@ class WalletForm extends Component {
             type="number"
             onChange={ this.handleChange }
             value={ value }
+            placeholder="Valor"
           />
           <input
             name="description"
             data-testid="description-input"
             type="text"
+            maxLength="30"
             onChange={ this.handleChange }
             value={ description }
+            placeholder="Descrição"
           />
           <select
             name="currency"

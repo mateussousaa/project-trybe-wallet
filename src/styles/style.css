@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comfortaa', cursive;
+}
+
+:root {
+  --flickr-pink: rgb(247, 37, 133);
+  --purple: rgb(114, 9, 183);
+  --trypan-blue: rgb(58, 12, 163);
+  --ultramarine-blue: rgb(67, 97, 238);
+  --vivid-sky-blue: rgb(76, 201, 240);
+  --border-radius01: 0.5rem;
+  --border-radius02: 0.2rem;
+  --box-shadow01: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  --box-shadow02: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.logo {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.801);
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo .logo-text {
+  font-size: 1.7rem;
+  align-self: flex-end;
+}
+
+.logo .logo-image {
+  width: 40px;
+}
+
+.login-page {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(120deg, var(--ultramarine-blue), var(--purple));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  background-color: white;
+  max-width: 350px;
+  min-height: 40vh;
+  padding: 2.5rem;
+  text-align: center;
+  border-radius: var(--border-radius01);
+  box-shadow: var(--box-shadow01);
+}
+
+.login-form form {
+  margin-top: 3rem;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.login-form input {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 0;
+  transition: 0.2s;
+}
+
+.login-form input:focus {
+  border-bottom: 2px solid var(--purple);
+  outline: 0;
+}
+
+.login-form button {
+  margin-top: 2rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.wallet-page {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, auto);
+  grid-template-areas: 
+  'header'
+  'form'
+  'table';
+}
+
+.wallet-header {
+  grid-area: header;
+  display: flex;
+  background-color: var(--vivid-sky-blue);
+  padding: 3rem 5rem;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--box-shadow02);
+}
+
+.wallet-header p {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.expenses-value {
+  background-color: var(--ultramarine-blue);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: var(--border-radius02);
+  box-shadow: var(--box-shadow02);
+}
+
+.expenses-value p, .expenses-value span {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.wallet-form {
+  grid-area: form;
+  padding: 2rem 5rem;
+  background-color: var(--purple);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  box-shadow: var(--box-shadow02);
+}
+
+.wallet-form h2 {
+  color: white;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.wallet-form form {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.wallet-form input, .wallet-form select, .wallet-form button {
+  background-color: white;
+  padding: 0.5rem 1rem;
+  font-size: .9rem;
+  font-weight: 700;
+  border: 0;
+  border-radius: var(--border-radius02);
+}
+
+.wallet-form button {
+  white-space: nowrap;
+}
+
+.wallet-form button:not(:disabled) {
+  cursor: pointer;
+}
+
+.expenses-table {
+  grid-area: table;
+  padding: 3rem 5rem;
+}
+
+.expenses-table h2{
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.expenses-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 3rem;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.expenses-table th, .expenses-table td {
+  padding: 0.6rem;
+  border: 1px solid rgba(0, 0, 0, 0.137);
+}
+
+.expenses-table th {
+  background-color: var(--ultramarine-blue);
+  color: white;
+  box-shadow: var(--box-shadow02);
+}
+
+.buttons-section {
+  justify-content: center;
+  gap: 2rem;
+}
+
+.buttons-section button {
+  padding: 1rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+  color: white;
+  font-weight: 700;
+  background: linear-gradient(to right, var(--ultramarine-blue), var(--purple));
+  border-radius: var(--border-radius02);
+  border: 0;
+  cursor: pointer;
+}
+
+.buttons-section #edit-btn {
+  background: linear-gradient(to left, var(--ultramarine-blue), var(--purple));
+}
+
+@media (max-width: 1399.98px) {
+  .wallet-page {
+    grid-template-rows: 15vh auto auto;
+  }
+
+  .wallet-form form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .wallet-form input, .wallet-form select, .wallet-form button {
+    width: 100%;
+  }
+
+  .expenses-table thead {
+    display: none;
+  }
+
+  .expenses-table tbody, tr, td {
+    display: block;
+    width: 100%;
+  }
+
+  .expenses-table tr {
+    margin-bottom: 10px;
+  }
+
+  .expenses-table td {
+    text-align: right;
+    position: relative;
+  }
+
+  .expenses-table td::before {
+    content: attr(data-label);
+    width: 60%;
+    font-weight: 700;
+    margin-left: 10px;
+    text-align: left;
+    position: absolute;
+    left: 0;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .wallet-header, .wallet-form, .expenses-table {
+    padding: 3rem 0.1rem;
+  }
+  
+  .wallet-page {
+    grid-template-rows: repeat(3, auto);
+  }
+
+  .wallet-header {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .buttons-section {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  td.buttons-section::before {
+    content: '';
+  }
+}

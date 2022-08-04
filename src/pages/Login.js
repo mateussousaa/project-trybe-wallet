@@ -32,11 +32,10 @@ class Login extends React.Component {
 
   render() {
     const payload = {
-      values: { ...this.state },
+      values: { ...this.state, isDisabled: this.validateLoginBtn() },
       callbacks: {
         handleInputs: this.handleInputs,
         doLogin: this.doLogin,
-        validateLoginBtn: this.validateLoginBtn,
       },
     };
     return (
