@@ -19,7 +19,7 @@ class Header extends Component {
     return (
       <div className="wallet-header">
         <a className="logo" href="/">
-          <h2 className="logo-text">Trybewallet</h2>
+          <h2 className="logo-text">Wallet</h2>
           <img className="logo-image" src={ trybewalletIcon } alt="Trybewallet Logo" />
         </a>
         <p data-testid="email-field">{ userEmail }</p>

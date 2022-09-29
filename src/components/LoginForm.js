@@ -6,7 +6,7 @@ function LoginForm({ payload: { values, callbacks } }) {
   return (
     <div className="login-form">
       <a className="logo" href="/">
-        <h2 className="logo-text">Trybewallet</h2>
+        <h2 className="logo-text">Wallet</h2>
         <img className="logo-image" src={ trybewalletIcon } alt="Trybewallet Logo" />
       </a>
       <form>
