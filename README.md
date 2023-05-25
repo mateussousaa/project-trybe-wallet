@@ -1,5 +1,7 @@
 # Trybe Wallet
 
+![Screenshot da tela inicial](trybe_wallet.gif)
+
 ### PT - BR
 
 Nesse projeto, eu fui capaz de:
